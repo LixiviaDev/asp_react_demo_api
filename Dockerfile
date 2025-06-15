@@ -9,7 +9,7 @@ ARG API_TEMPLATE_REPO
 RUN git clone ${API_TEMPLATE_REPO} .
 RUN git pull
 
-COPY . .
+COPY zepto_v2.csv .
 
 RUN dotnet build
 RUN dotnet tool restore
