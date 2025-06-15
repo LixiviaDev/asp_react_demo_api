@@ -8,6 +8,12 @@ builder.Services.AddDbContext<MyAppDbContext>(options => options.UseSqlServer(bu
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<MyAppDbContext>();
+    db.Database.Migrate();
+}
+
 app.UseRouting();
 
 app.MapControllerRoute(
