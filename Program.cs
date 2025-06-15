@@ -1,5 +1,6 @@
 using MyApp.Data;
 using Microsoft.EntityFrameworkCore;
+using MyApp.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,8 @@ using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<MyAppDbContext>();
     db.Database.Migrate();
+
+    PopulateTable.ItemsFromCsv(db, "zepto_v2.csv");
 }
 
 app.UseRouting();

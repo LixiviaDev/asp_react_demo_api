@@ -7,7 +7,7 @@ public class MyAppDbContext : DbContext
 {
     public MyAppDbContext(DbContextOptions<MyAppDbContext> options): base(options) 
     { 
-         Database.EnsureCreated();
+        //  Database.EnsureCreated();
         //  Database.Migrate();
     }
 

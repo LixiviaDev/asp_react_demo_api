@@ -1,5 +1,8 @@
 namespace MyApp.Models;
 
+using MyApp.Data;
+using System.IO;
+
 public class Item
 {
     public int Id { get; set; }
@@ -37,5 +40,19 @@ public class Item
         WeightInGms = _WeightInGms;
         Quantity = _Quantity;
         OutOfStock = _OutOfStock;
+    }
+    
+    public Item(string csvLine)
+    {
+        string[] values = csvLine.Split(';');
+        Category = Convert.ToString(values[0]);
+        Name = Convert.ToString(values[1]);
+        Mrp = Convert.ToInt32(values[2]);
+        DiscountPercent = Convert.ToInt32(values[3]);
+        AvailableQuantity = Convert.ToInt32(values[4]);
+        DiscountedSellingPrice = Convert.ToInt32(values[5]);
+        WeightInGms = Convert.ToInt32(values[6]);
+        OutOfStock = Convert.ToBoolean(values[7]);
+        Quantity = Convert.ToInt32(values[8]); 
     }
 }
