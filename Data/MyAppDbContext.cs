@@ -5,7 +5,11 @@ namespace MyApp.Data;
 
 public class MyAppDbContext : DbContext
 {
-    public MyAppDbContext(DbContextOptions<MyAppDbContext> options): base(options) { }
+    public MyAppDbContext(DbContextOptions<MyAppDbContext> options): base(options) 
+    { 
+         Database.EnsureCreated();
+        //  Database.Migrate();
+    }
 
     public DbSet<Item> Items {get; set;}
 }
