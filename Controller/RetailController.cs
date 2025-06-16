@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MyApp.Data;
+using MyApp.Models;
 
 namespace MyApp.Namespace
 {
@@ -7,26 +9,26 @@ namespace MyApp.Namespace
     [ApiController]
     public class RetailController : ControllerBase
     {
-        // // GET: api/<RetailController>
-        // [HttpGet]
-        // public IActionResult Get()
-        // {
-        //     // string[] collection = new string[] { "value1", "value2" }
-        //     return Content("a");
-        // }
+        private readonly MyAppDbContext context;
+
+        public RetailController(MyAppDbContext _context) 
+        {
+            context = _context;
+        }
 
         // GET: api/<RetailController>
         [HttpGet]
-        public string[] Get()
+        public List<Item> Get()
         {
-            return new string[] { "value1", "value2" };
+            return context.Items.ToList();
         }
 
         // GET api/<RetailController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Item Get(int id)
         {
-            return "value";
+            return context.Items.Find(id);
+
         }
 
         // POST api/<RetailController>
@@ -45,6 +47,9 @@ namespace MyApp.Namespace
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            Item item = context.Items.Find(id);
+            context.Remove(item);
+            context.SaveChanges();
         }
     }
 }
